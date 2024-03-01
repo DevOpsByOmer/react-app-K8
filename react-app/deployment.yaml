@@ -1,0 +1,33 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-1
+spec:
+  selector:
+    matchLabels:
+      app: react-app
+  template:
+    metadata:
+      labels:
+        app: react-app
+        tier: react-app
+    spec:
+      containers:
+      - name: webapp
+        image: saotech/react-appx1:v1
+  replicas: 4
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-1
+spec:
+  type: NodePort
+  ports:
+    - targetPort: 80
+      port: 80
+      
+  selector:
+      app: react-app
+      tier: react-app
